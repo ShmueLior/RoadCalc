@@ -1,0 +1,31 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+.store-name {
+  display: contents;
+  color: aliceblue;
+}
+
+.mat-toolbar-row,
+.mat-toolbar-single-row {
+  white-space: normal;
+}
+.header {
+  background-color: black;
+}
+.user-avatar {
+  width: 30px;
+  border-radius: 50%;
+  margin-inline-end: 15px;
+}
+
+@media screen and (max-width: 500px) {
+  * {
+    font-family: Raleway sans-serif !important;
+    font-size: inherit;
+  }
+  .logo {
+    display: none;
+  }
+}

@@ -1,0 +1,20 @@
+section {
+  display: table;
+}
+
+.home-buttons {
+  display: table-cell;
+  width: 490px;
+  text-align: center;
+  position: relative;
+}
+
+.home-buttons .mat-button-base {
+  margin: 8px 8px 8px 0;
+  background-color: #001f3f;
+  color: white;
+  font-size: 30px;
+  padding: 26px;
+  top: 200px;
+  left: 100%;
+}
