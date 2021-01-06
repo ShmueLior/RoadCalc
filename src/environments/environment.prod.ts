@@ -1,3 +1,4 @@
+const API_KEY = 'AIzaSyAH2eOXc_rawTqPAb2R32WwPbtBQg659ds';
 export const environment = {
   production: true,
   firebaseConfig : {

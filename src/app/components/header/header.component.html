@@ -7,7 +7,6 @@
     <span>Road Calculator</span>
   </div>
   <div class="spacer"></div>
-  <a mat-button color="primary" (click)="logout()" *ngIf="isLoggedIn$ | async"
-    >Logout</a
-  >
+  <a mat-button routerLink="/" *ngIf="isLoggedIn$ | async">Home</a>
+  <a mat-button color="primary" (click)="logout()" *ngIf="isLoggedIn$ | async">Logout</a>
 </mat-toolbar>

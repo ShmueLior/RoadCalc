@@ -4,6 +4,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { UserProfile } from '../models/user';
 import firebase from 'firebase/app'
 import { AngularFireAuth } from '@angular/fire/auth';
+import { Ride } from '../models/ride';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -58,6 +60,31 @@ export class FirebaseService {
         .catch((err) =>
           console.log(`error while trying to update user: ${user.uid}`, err)
         );
+    });
+  }
+
+  addRide(ride: Ride){
+    this.afAuth.authState.subscribe( user => {
+      if(user){
+       this.db.collection('users')
+       .where('uid', '==', user.uid)
+       .limit(1)
+       .get()
+       .then((querySnapshot) => {
+        if (querySnapshot.docs[0]) {
+          const docRef = this.db
+            .collection(`users`)
+            .doc(`${querySnapshot.docs[0].id}`);
+            docRef.collection('rides').add(ride)
+            .then( data => {
+              return data;
+            })
+            .catch (err => {
+              return err;
+            });
+        }
+       });
+      }
     });
   }
 }

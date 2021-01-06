@@ -20,6 +20,10 @@
   margin-inline-end: 15px;
 }
 
+a {
+  color: white;
+}
+
 @media screen and (max-width: 500px) {
   * {
     font-family: Raleway sans-serif !important;

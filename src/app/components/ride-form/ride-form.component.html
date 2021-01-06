@@ -1,120 +1,53 @@
-<!-- <div class="form-ride">
-  <h1>Add a new Ride</h1>
-    <label>Location:</label>
-    <app-google-auto-complete
-    (setAddress)="getAddress($event)"
-    adressType="geocode"
-    class="auto"
-    ></app-google-auto-complete>
-    <br>
-    <label>Destanation:</label>
-    <app-google-auto-complete
-    (setAddress)="getAddress($event)"
-    adressType="geocode"
-    class="auto"
-    ></app-google-auto-complete>
-    <input matInput [matDatepicker]="picker">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-    <br>
-    <mat-radio-group aria-label="Select an option">
-      <mat-radio-button value="1">Long Road</mat-radio-button>
-      <mat-radio-button value="2">Short Road</mat-radio-button>
-    </mat-radio-group>
-</div> -->
-<style>
-  * {
-    box-sizing: border-box;
-  }
+  <div>
 
-  input[type=text], input[type=date], textarea{
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: vertical;
-  }
-
-  label {
-    padding: 12px 12px 12px 0;
-    display: inline-block;
-  }
-
-  input[type=submit] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    float: right;
-  }
-
-  input[type=submit]:hover {
-    background-color: #45a049;
-  }
-
-  .container {
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    padding: 20px;
-  }
-
-  .col-25 {
-    float: left;
-    width: 25%;
-    margin-top: 6px;
-  }
-
-  .col-75 {
-    float: left;
-    width: 75%;
-    margin-top: 6px;
-  }
-
-  /* Clear floats after the columns */
-  .row:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-
-  /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
-  @media screen and (max-width: 600px) {
-    .col-25, .col-75, input[type=submit] {
-      width: 100%;
-      margin-top: 0;
-    }
-  }
-  </style>
-  <body>
-
-  <h2>Load new Ride</h2>
+  <h1>Add new Ride</h1>
 
   <div class="container">
-    <form action="/action_page.php">
+    <form #rideForm="ngForm">
+
       <div class="row">
         <div class="col-25">
           <label>Location:</label>
         </div>
         <div class="col-75">
-          <app-google-auto-complete
-            (setAddress)="getAddress($event)"
-            adressType="geocode"
-            class="auto"
-    ></app-google-auto-complete>
+          <input
+           name="startLocation"
+           type="text"
+           ngx-google-places-autocomplete
+           [options]='options'
+           #placesRef="ngx-places"
+           (onAddressChange)="srcAddressChange($event)"
+           (setAddress)="getAddress($event)"
+           adressType="geocode"
+           dir="rtl"
+           required/>
         </div>
       </div>
       <div class="row">
         <div class="col-25">
-          <label for="lname">Destenation:</label>
+          <label>Destenation:</label>
         </div>
         <div class="col-75">
-          <app-google-auto-complete
-            (setAddress)="getAddress($event)"
-            adressType="geocode"
-            class="auto"
-    ></app-google-auto-complete>
+          <input
+           name="endLocation"
+           type="text"
+           ngx-google-places-autocomplete
+           [options]='options'
+           #placesRef="ngx-places"
+           (onAddressChange)="dstAddressChange($event)"
+           (setAddress)="getAddress($event)"
+           adressType="geocode"
+           dir="rtl"
+           required/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-25">
+          <label for="country">Distance(km):</label>
+        </div>
+        <div class="col-75">
+          <input name="distance" type="text" placeholder="מרחק בין היעדים..." dir="rtl" [(ngModel)] = "distance" readonly/>
+          <button (click)="calculateDistance()">Calculate</button>
         </div>
       </div>
       <div class="row">
@@ -122,21 +55,24 @@
           <label for="country">Date:</label>
         </div>
         <div class="col-75">
-          <input type="date" placeholder="Enter Date"/>
+          <input name="date" type="date" placeholder="Enter Date" ngModel/>
         </div>
       </div>
       <div class="row">
         <div class="col-25">
-          <label for="subject">Notes:</label>
+          <label for="subject">Purpose:</label>
         </div>
         <div class="col-75">
-          <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+          <input type="text" id="subject" name="subject" placeholder="מטרת הנסיעה..." dir="rtl" ngModel/>
         </div>
       </div>
       <div class="row">
-        <input type="submit" value="Submit">
+        <input (click)="submit()" type="submit" value="Save">
       </div>
     </form>
+
+
   </div>
 
-  </body>
+</div>
+
